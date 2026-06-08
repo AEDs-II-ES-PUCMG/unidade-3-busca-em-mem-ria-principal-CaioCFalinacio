@@ -163,9 +163,27 @@ public class ABB<K, V> implements IMapeamento<K, V>{
 
     
     public Lista<V> recortar(K chaveDeOnde, K chaveAteOnde) {
-		
-    	// TODO
-		return null;
+		Lista<V> listaResultado = new Lista<>();
+		recortarRecursivo(raiz, chaveDeOnde, chaveAteOnde, listaResultado);
+		return listaResultado;
+	}
+
+	public void recortarRecursivo(No<K, V> noAtual, K min, K max, Lista<V> lista) {
+		if(noAtual == null) {
+			return;
+		}
+
+		int comparacaoMin = comparador.compare(noAtual.getChave(), min);
+		int comparacaoMax = comparador.compare(noAtual.getChave(), max);
+
+		if(comparacaoMin > 0)
+			recortarRecursivo(noAtual.getEsquerda(), min, max, lista);
+
+		if (comparacaoMin >= 0 && comparacaoMax <= 0) 
+            lista.inserir(noAtual.getItem()); 
+
+		if(comparacaoMax < 0)
+			recortarRecursivo(noAtual.getDireita(), min, max, lista);
 	}
 
 	@Override
