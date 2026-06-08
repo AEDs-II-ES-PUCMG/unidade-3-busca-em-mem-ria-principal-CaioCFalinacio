@@ -182,15 +182,27 @@ public class App {
     }
     
     private static <K> void recortarProduto(ABB<K, Produto> produtosCadastrados, K deOnde, K ateOnde) {
-    	//TODO
+    	Lista<Produto> produtosRecortados = produtosCadastrados.recortar(deOnde, ateOnde);
+        System.out.println("PRODUTOS RECORTADOS:");
+        System.out.println(produtosRecortados.toString());
     }
     
     private static void recortarProdutosNome(ABB<String, Produto> produtosCadastrados) {
-    	//TODO
+    	String nomeDeOnde = lerOpcao("Digite o nome do produto de onde recortar: ", String.class);
+        if (nomeDeOnde == null) { return; }
+        String nomeAteOnde = lerOpcao("Digite o nome do produto até onde recortar: ", String.class);
+        if (nomeAteOnde == null) { return; }
+
+        recortarProduto(produtosCadastrados, nomeDeOnde, nomeAteOnde);
     }
      
     private static void recortarProdutosId(ABB<Integer, Produto> produtosCadastrados) {
-    	//TODO
+    	Integer idDeOnde = lerOpcao("Digite o código do produto de onde recortar: ", Integer.class);
+        if (idDeOnde == null) { return; }
+        Integer idAteOnde = lerOpcao("Digite o código do produto até onde recortar: ", Integer.class);
+        if (idAteOnde == null) { return; }
+
+        recortarProduto(produtosCadastrados, idDeOnde, idAteOnde);
     }
     
     public static void main(String[] args) {
