@@ -211,6 +211,22 @@ public class ABB<K, V> implements IMapeamento<K, V>{
         return raizArvore;
     }
 
+	protected No<K, V> removerNoAntecessor(No<K, V> itemRetirar, No<K, V> raizArvore) {
+        /// Se o antecessor do nó que deverá ser retirado da árvore ainda não foi encontrado...
+        if (raizArvore.getDireita() != null) {
+            /// Pesquise o antecessor na sub-árvore direita.
+            raizArvore.setDireita(removerNoAntecessor(itemRetirar, raizArvore.getDireita()));
+        } else {
+        	/// O antecessor do nó que deverá ser retirado da árvore foi encontrado e deverá substitui-lo.
+        	itemRetirar.setChave(raizArvore.getChave());
+            itemRetirar.setItem(raizArvore.getItem());
+            /// A raiz da árvore ou sub-árvore é atualizada com os descendentes à esquerda do antecessor.
+            /// Ou seja, retira-se o antecessor da árvore.
+            raizArvore = raizArvore.getEsquerda();
+        }
+        return raizArvore;
+    }
+
     
     public Lista<V> recortar(K chaveDeOnde, K chaveAteOnde) {
 		Lista<V> listaResultado = new Lista<>();
