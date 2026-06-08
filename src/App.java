@@ -160,20 +160,25 @@ public class App {
     /** Localiza e remove um produto da árvore de produtos organizados por id, a partir do código de produto informado pelo usuário, e o retorna. 
      *  Em caso de não encontrar o produto, retorna null */
     static Produto removerProdutoId(ABB<Integer, Produto> produtosCadastrados) {
-    	//TODO
-    	return null;
+    	Integer idProcurado = lerOpcao("Digite o código do produto a ser removido: ", Integer.class);
+        if (idProcurado == null) { return null; }
+    	return removerProduto(produtosCadastrados, idProcurado);
     }
 
      /** Localiza e remove um produto na árvore de produtos organizados por nome, a partir do nome de produto informado pelo usuário, e o retorna. 
       *  A busca não é sensível ao caso. Em caso de não encontrar o produto, retorna null */
     static Produto removerProdutoNome(ABB<String, Produto> produtosCadastrados) {
-    	//TODO
-    	return null;
+    	String nomeProcurado = lerOpcao("Digite o nome do produto a ser removido: ", String.class);
+        if (nomeProcurado == null) { return null; }
+    	return removerProduto(produtosCadastrados, nomeProcurado);
     }
 
     static <K> Produto removerProduto(ABB<K, Produto> produtosCadastrados, K chave){
-    	//TODO
-    	return null;
+    	try{
+            return produtosCadastrados.remover(chave);
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
     
     private static <K> void recortarProduto(ABB<K, Produto> produtosCadastrados, K deOnde, K ateOnde) {
